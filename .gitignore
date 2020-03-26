@@ -67,7 +67,7 @@ celerybeat-schedule
 # Environments
 .env
 .virtual
-env/
+virtual/
 virtual/
 ENV/
 env.bak/
@@ -77,8 +77,3 @@ virtual.bak/
 .spyproject
 # Rope project settings
 .ropeproject
-# mkdocs documentation
-/site
-# mypy
-.mypy_cache/
-.vscode/
