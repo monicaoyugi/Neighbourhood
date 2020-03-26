@@ -19,10 +19,10 @@ class Business(models.Model):
     def deletebusiness(self):
         self.delete()
         
-    @classmethod
-    def get_businesses(cls):
-        business=cls.objects.all()
+    def get_businesses(cls,name):
+        business=cls.objects.filter(businessname=name)
         return business
+        
         
     @classmethod
     def search_by_business(cls,name):
