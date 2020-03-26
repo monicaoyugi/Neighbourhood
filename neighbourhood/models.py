@@ -12,4 +12,9 @@ class Business(models.Model):
     def __str__(self):
         return self.business_name
     
+    @classmethod
+    def search_business(cls,search_term):
+        business = cls.objects.filter(business_name_icontains=search_term)
+        return business
+    
     
