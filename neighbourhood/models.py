@@ -29,4 +29,3 @@ class Business(models.Model):
         business=cls.objects.filter(businessname=name)
         return business
     
-    
