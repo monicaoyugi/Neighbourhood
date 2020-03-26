@@ -10,8 +10,8 @@ class Neighbourhood(models.Model):
     ''' 
     neighbourhood_name = models.CharField(max_length=50)
     location = models.CharField()
-
-    number_of_estates = models.CharField()
+    number_of_amenities = models.IntegerField(blank=True)
+    number_of_estates = models.IntegerField()
 
 class Business(models.Model):
     '''

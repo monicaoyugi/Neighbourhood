@@ -1,12 +1,8 @@
 from rest_framework import serializers
-from .models import Projects, Profile
+from .models import Neighbourhood, Business, Profile, Posts
 
-class ProjectsSerializer(serializers.ModelSerializer):
+class NeighbourhoodSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Projects
-        fields = ('id', 'title', 'description', 'project_image', 'project_url')
+        model = Neighbourhood
+        fields = ('neighbourhood_name', 'location', 'number_of_amenities', 'number_of_estates')
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ('bio', 'user', 'contact_phonenumber', 'profile_pic')
