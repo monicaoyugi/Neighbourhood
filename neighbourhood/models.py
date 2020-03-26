@@ -11,7 +11,9 @@ class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
     number_of_amenities = models.IntegerField(blank=True)
+    amenities = models.CharField(max_length=1000, blank=True)
     number_of_estates = models.IntegerField()
+    # admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @classmethod
     def find_neighbourhood(neigborhood_id):
