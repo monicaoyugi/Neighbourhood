@@ -12,4 +12,9 @@ def search_results(request):
     else:
          message ="You haven't searched for any categories"
          return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+     
+def single_business(request,businessid):
+    single_business=Business.single_business(businessid)
+    return render(request,'singlebusiness.html',{'singlebusiness':single_business})   
+
 
