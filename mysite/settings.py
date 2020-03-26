@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',default=False, cast=bool)
 MODE = config("MODE", default="dev")
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) 
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -43,7 +43,6 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'rest_framework',
-    'neighbourhood',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,15 +88,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if config('MODE') == "dev":
+if os.environ.get('MODE') == "dev":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'PORT': config('DB_PORT'),
-            'NAME': config('DB_NAME'),
-            'USER':config('DB_USER'),
-            'PASSWORD':config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+            'NAME': os.environ.get('DB_NAME'),
+            'USER':os.environ.get('DB_USER'),
+            'PASSWORD':os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
         }
 }
 #production
@@ -108,8 +107,8 @@ else:
         )
     }
 #dont forget thie lines below
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
