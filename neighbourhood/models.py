@@ -9,7 +9,7 @@ class Neighbourhood(models.Model):
     neighbourhood class and its methods
     ''' 
     neighbourhood_name = models.CharField(max_length=50)
-    location = models.CharField()
+    location = models.CharField(max_length=50)
     number_of_amenities = models.IntegerField(blank=True)
     number_of_estates = models.IntegerField()
 
