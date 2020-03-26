@@ -51,7 +51,7 @@ class Posts(models.Model):
     message = models.TextField(max_length=200, null=True, blank=True)
     date_uploaded = models.DateTimeField(auto_now_add=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    estate = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    estate = models.ForeignKey(Neighbourhood,default=Null, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-date_uploaded']
