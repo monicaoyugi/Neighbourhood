@@ -3,18 +3,30 @@ from django.db import models
 # Create your models here.
 
 class Business(models.Model):
-    business_name = models.CharField(max_length = 50)
-    business_description = models.TextField()
-    user = models.ForeignKey('Profile')
-    neighborhood = models.ForeignKey('Neighbourhood')
-    business_email = models.EmailField()
-    
+    businesspic=models.ImageField(upload_to='images/',blank=True)
+    businessname=models.CharField(max_length=30)
+    editor=models.ForeignKey(User,on_delete=models.CASCADE)
+    area=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,null=True)
+    businessemail=models.CharField(max_length=30)
+    pub_date=models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return self.business_name
+        return self.businessname
     
+    def savebusiness(self):
+        self.save()
+        
+    def deletebusiness(self):
+        self.delete()
+        
     @classmethod
-    def search_business(cls,search_term):
-        business = cls.objects.filter(business_name_icontains=search_term)
+    def get_businesses(cls):
+        business=cls.objects.all()
+        return business
+        
+    @classmethod
+    def search_by_business(cls,name):
+        business=cls.objects.filter(businessname=name)
         return business
     
     
