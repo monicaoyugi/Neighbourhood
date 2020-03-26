@@ -29,7 +29,7 @@ class Business(models.Model):
     name = models.CharField(max_length=50)
     business_email = models.EmailField(null=True)
     business_id = models.ForeignKey(Neighbourhood, blank = True, on_delete=models.CASCADE )
-    estate = models.ForeignKey(User, on_delete=models.CASCADE, blank-True)
+    estate = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Profile(models.Model):
     '''
