@@ -9,6 +9,7 @@ class Business(models.Model):
     neighborhood = models.ForeignKey(Neighbourhood)
     business_email = models.EmailField()
     
-    
+    def __str__(self):
+        return self.business_name
     
     
