@@ -11,4 +11,5 @@ def search_results(request):
         return render(request,'searchbusiness.html',{"message":message,"business":searched_business})
     else:
          message ="You haven't searched for any categories"
-        return render(request,'search.html',{"message":message})
+         return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+
