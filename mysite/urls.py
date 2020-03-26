@@ -21,7 +21,7 @@ from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('neighborhood.urls')),
+    path('',include('neighbourhood.urls')),
     path('login/', views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
