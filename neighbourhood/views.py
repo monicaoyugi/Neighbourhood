@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import  Neighbourhood
+from .models import  Neighbourhood,Business
 from .serializer import NeighbourhoodSerializer
 from rest_framework import status
 
@@ -28,5 +28,20 @@ class NeighbourhoodList(APIView):
         hoods = Neighbourhood.objects.all()
         serializer = self.serializer_class(data=hoods)
         return Response(serializer.data,status=status.HTTP_200_OK)
+    
+def search_results(request):
+    if 'business' in request.GET and request.Get["business"]:
+        search_term = request.GET.get("business")
+        search_categories = Business.search_business(search_term)
+        message = f"{search_term}"
+        return render(request,'searchbusiness.html',{"message":message,"business":searched_business})
+    else:
+         message ="You haven't searched for any categories"
+         return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+     
+def single_business(request,businessid):
+    single_business=Business.single_business(businessid)
+    return render(request,'singlebusiness.html',{'singlebusiness':single_business}) 
+
 
 
