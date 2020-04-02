@@ -5,8 +5,8 @@ from django.db import models
 class Business(models.Model):
     businesspic=models.ImageField(upload_to='images/',blank=True)
     businessname=models.CharField(max_length=30)
-    editor=models.ForeignKey(User,on_delete=models.CASCADE)
-    area=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,null=True)
+    # editor=models.ForeignKey(User,on_delete=models.CASCADE)
+    # area=models.ForeignKey(Neighborhood,on_delete=models.CASCADE,null=True)
     businessemail=models.CharField(max_length=30)
     pub_date=models.DateTimeField(auto_now_add=True)
 
