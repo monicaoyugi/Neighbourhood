@@ -29,7 +29,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',default=False, cast=bool)
 MODE = config("MODE", default="dev")
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) 
+ALLOWED_HOSTS = ['127.0.0.1'] 
+# config('ALLOWED_HOSTS', cast=Csv())
 
 
 # Application definition
@@ -45,6 +46,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'neighbourhood',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -52,8 +54,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whitenoise.runserver_nonstatic',
+    
 ]
+
+
+#also part of installed apps 'whitenoise.runserver_nonstatic',
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -71,7 +76,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(PROJECT_ROOT, 'templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,6 +86,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             # 'debug':DEBUG,
+            #in dirs add os.path.join(PROJECT_ROOT, 'templates')
         },
     },
 ]
@@ -109,7 +115,7 @@ else:
             default=config('DATABASE_URL')
         )
     }
-#dont forget thie lines below
+#lines to enable django connection pool (conn_max_age)
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -151,4 +157,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
