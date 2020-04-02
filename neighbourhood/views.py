@@ -28,3 +28,5 @@ class NeighbourhoodList(APIView):
         hoods = Neighbourhood.objects.all()
         serializer = self.serializer_class(data=hoods)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+

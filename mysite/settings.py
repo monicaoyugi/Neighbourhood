@@ -14,8 +14,6 @@ import os
 from decouple import config,Csv
 import dj_database_url
 
-
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,18 +38,36 @@ REST_FRAMEWORK = {
     )
 }
 
-
 INSTALLED_APPS = [
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_jwt',
     'neighbourhood',
     'bootstrap3',
+
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+}
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -106,10 +122,6 @@ else:
             default=config('DATABASE_URL')
         )
     }
-#dont forget thie lines below
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
