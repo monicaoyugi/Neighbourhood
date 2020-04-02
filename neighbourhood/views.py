@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
@@ -7,11 +9,13 @@ from .serializer import NeighbourhoodSerializer
 from rest_framework import status
 
 
+
 @login_required(login_url='/accounts/login/')
 def index(request):
     current_user = request.user.id
     user = request.user
-    date = dt.date.today()
+    print(datetime.date.today(), "####################################################################")
+    date = datetime.date.today()
     posts = Post.objects.all()
     if Profile.objects.filter(user = request.user).count() == 0:
         prof = Profile(user=request.user)
