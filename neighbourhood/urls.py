@@ -11,3 +11,4 @@ urlpatterns = [
     re_path('api/v1/manage_hood/hood-id/(?P<pk>[0-9]+)/', views.HoodManager.as_view())
 ]
 
+

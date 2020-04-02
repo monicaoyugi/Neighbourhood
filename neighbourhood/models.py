@@ -20,6 +20,18 @@ class Business(models.Model):
     business_name = models.CharField(max_length=50)
     business_email = models.EmailField(null=True)
     business_id = models.ForeignKey(Neighbourhood, blank = True, on_delete=models.CASCADE )
+
+class Business(models.Model):
+    '''
+    Business class and its model
+    '''
+    # cover_image = models.ImageField((upload_to = 'business/', null=True, blank=True)
+    name = models.CharField(max_length=50)
+    business_email = models.EmailField(null=True)
+    business_id = models.ForeignKey(Neighbourhood, blank = True, on_delete=models.CASCADE )
+    estate = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Profile(models.Model):
     '''
     normal user profile model and its methods
@@ -27,6 +39,7 @@ class Profile(models.Model):
     profile_picture = models.ImageField(blank=True)
     name_user = models.TextField(max_length=50, null=True, blank=True)
     user = models.OneToOneField(User, blank=True, on_delete=models.CASCADE)
+
 class Posts(models.Model):
     '''
     model for alerts/meetings & posts
@@ -37,3 +50,4 @@ class Posts(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True, null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     estate = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+
