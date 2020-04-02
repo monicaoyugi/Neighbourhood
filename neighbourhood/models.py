@@ -21,14 +21,30 @@ class Neighbourhood(models.Model):
 
 
 class Business(models.Model):
-    '''
-    Business class and its model
-    '''
-    name = models.CharField(max_length=50)
-    business_email = models.EmailField(null=True)
-    business_id = models.ForeignKey(Neighbourhood, blank = True, on_delete=models.CASCADE )
-    estate = models.ForeignKey(User, on_delete=models.CASCADE)
+    businesspic=models.ImageField(upload_to='images/',blank=True)
+    businessname=models.CharField(max_length=30)
+    businessemail=models.CharField(max_length=30)
+    pub_date=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.businessname
+    
+    def savebusiness(self):
+        self.save()
+        
+    def deletebusiness(self):
+        self.delete()
+        
+    def get_businesses(cls,name):
+        business=cls.objects.filter(businessname=name)
+        return business
+        
+        
+    @classmethod
+    def search_by_business(cls,name):
+        business=cls.objects.filter(businessname=name)
+        return business
+    
 
 class Profile(models.Model):
     '''

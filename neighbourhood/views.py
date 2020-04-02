@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -41,7 +41,20 @@ def search_results(request):
      
 def single_business(request,businessid):
     single_business=Business.single_business(businessid)
-    return render(request,'singlebusiness.html',{'singlebusiness':single_business}) 
+    return render(request,'singlebusiness.html',{'singlebusiness':single_business})
+
+def business(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = business(request.POST,request.FILES)
+        if form.is_valid():
+            project =form.save(commit=False)
+            project.editor =current_user
+            project.save()
+            return redirect('home')
+    else:
+        form = business()
+    return render(request,'postbusiness.html',{"form":form}) 
 
 
 
