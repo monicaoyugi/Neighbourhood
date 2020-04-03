@@ -1,0 +1,36 @@
+{%load bootstrap3%}
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Business</title>
+  {{form.media}}
+
+  <header class="masthead">
+    <div class="container">
+      <div class="intro-text">
+
+            {% if user.is_authenticated%}
+            <div class="col-lg-7 my-auto">
+        
+        
+                <form action="{%url 'business'%}" method="post" enctype="multipart/form-data">
+                    {%csrf_token%}
+        
+                    {% bootstrap_form form%}
+                    <input type="submit" class="btn btn-success btn-lg" value="Post">
+                </form>
+            </div>
+            {%endif%}
+
+        
+      </div>
+    </div>
+  </header>

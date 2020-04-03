@@ -11,9 +11,7 @@ class Neighbourhood(models.Model):
     neighbourhood_name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
     number_of_amenities = models.IntegerField(blank=True)
-    # amenities = models.CharField(max_length=1000, blank=True)
     number_of_estates = models.IntegerField()
-    # admin = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @classmethod
     def find_neighbourhood(neigborhood_id):
@@ -23,15 +21,32 @@ class Neighbourhood(models.Model):
         query = cls.objects.filter(meighbourhood_name__icontains=search_term)
         return query
 
+
 class Business(models.Model):
-    '''
-    Business class and its model
-    '''
-    # cover_image = models.ImageField((upload_to = 'business/', null=True, blank=True)
-    name = models.CharField(max_length=50)
-    business_email = models.EmailField(null=True)
-    business_id = models.ForeignKey(Neighbourhood, blank = True, on_delete=models.CASCADE )
-    estate = models.ForeignKey(User, on_delete=models.CASCADE)
+    businesspic=models.ImageField(upload_to='images/',blank=True)
+    businessname=models.CharField(max_length=30)
+    businessemail=models.CharField(max_length=30)
+    pub_date=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.businessname
+    
+    def savebusiness(self):
+        self.save()
+        
+    def deletebusiness(self):
+        self.delete()
+        
+    def get_businesses(cls,name):
+        business=cls.objects.filter(businessname=name)
+        return business
+        
+        
+    @classmethod
+    def search_by_business(cls,name):
+        business=cls.objects.filter(businessname=name)
+        return business
+    
 
 class Profile(models.Model):
     '''
@@ -42,7 +57,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+            return self.name
 
 class Posts(models.Model):
     '''
