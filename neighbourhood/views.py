@@ -29,21 +29,30 @@ class NeighbourhoodList(APIView):
         serializer = self.serializer_class(data=hoods)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
-def search_results(request):
-    if 'business' in request.GET and request.Get["business"]:
-        search_term = request.GET.get("business")
-        search_categories = Business.search_business(search_term)
-        message = f"{search_term}"
-        return render(request,'searchbusiness.html',{"message":message,"business":searched_business})
-    else:
-         message ="You haven't searched for any categories"
-         return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+# def search_results(request):
+#     if 'business' in request.GET and request.Get["business"]:
+#         search_term = request.GET.get("business")
+#         search_categories = Business.search_business(search_term)
+#         message = f"{search_term}"
+#         return render(request,'searchbusiness.html',{"message":message,"business":searched_business})
+#     else:
+#          message ="You haven't searched for any categories"
+#          return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+
+def search_business(request):
+    
+    if 'business' in request.GET and request.GET["business"]:
+        category = request.GET.get("business")
+        searched_category = Business.search_by_category(category)
+        message = f"{category}"
+        
+        return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
      
 def single_business(request,businessid):
     single_business=Business.single_business(businessid)
     return render(request,'singlebusiness.html',{'singlebusiness':single_business})
 
-def business(request):
+def add_business(request):
     current_user = request.user
     if request.method == 'POST':
         form = business(request.POST,request.FILES)

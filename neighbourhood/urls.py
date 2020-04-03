@@ -18,9 +18,9 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('signup/',views.index,name='signup'),
     path('api/v1/hoods', views.NeighbourhoodList.as_view()),
-    # path('searchbusiness/', views.search_business, name="search_business"),
+    path('search/business', views.search_business, name="search_business"),
     re_path(r'^business/(\d+)',views.single_business,name='singlebusiness'),
-    # path('add/business',views.add_business,name='addbusiness')
+    path('add/business',views.add_business,name='add-business')
 ]
 
 
