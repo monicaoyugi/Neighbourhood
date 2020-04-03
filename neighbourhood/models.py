@@ -1,6 +1,8 @@
 from django.db import models
 import datetime as DateTimeField
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 class Neighbourhood(models.Model):
     '''
@@ -50,7 +52,7 @@ class Profile(models.Model):
     '''
     normal user profile model and its methods
     '''
-    profile_picture = models.ImageField(blank=True)
+    # profile_picture = models.ImageField((upload_to = 'business/', null=True, blank=True,blank=True)
     name_user = models.TextField(max_length=50, null=True, blank=True)
     user = models.OneToOneField(User, blank=True, on_delete=models.CASCADE)
 
@@ -61,7 +63,7 @@ class Posts(models.Model):
     '''
     model for alerts/meetings & posts
     '''
-    image = models.ImageField(null=True, blank=True)
+    # image = models.ImageField((upload_to = 'profile/', null=True, blank=True ,null=True, blank=True)
     title = models.CharField(max_length=80)
     message = models.TextField(max_length=200, null=True, blank=True)
     date_uploaded = models.DateTimeField(auto_now_add=True, null=True)

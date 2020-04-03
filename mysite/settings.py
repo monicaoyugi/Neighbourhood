@@ -35,10 +35,17 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS')
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ), 
 }
 
+
 INSTALLED_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
+    'neighbourhood',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,20 +61,8 @@ INSTALLED_APPS = [
 
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
 
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
-}
+#also part of installed apps 'whitenoise.runserver_nonstatic',
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -94,6 +89,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 'debug':DEBUG,
+            #in dirs add os.path.join(PROJECT_ROOT, 'templates')
         },
     },
 ]
@@ -122,6 +119,10 @@ else:
             default=config('DATABASE_URL')
         )
     }
+#lines to enable django connection pool (conn_max_age)
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
