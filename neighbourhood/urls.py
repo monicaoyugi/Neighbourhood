@@ -8,16 +8,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'Neighbourhoods', views.NeighbourhoodList, basename='Neighbourhoods')
+# router = routers.DefaultRouter(trailing_slash=False)
+# router.register(r'Neighbourhoods', views.NeighbourhoodList, basename='Neighbourhoods')
 
 urlpatterns = [
     path('api/v1/create_hood/', views.NeighbourhoodList.as_view()),
-    re_path(r'api/', include(router.urls)),
-    re_path('api/v1/manage_hood/hood-id/(?P<pk>[0-9]+)/', views.HoodManager.as_view()),
+    # re_path(r'api/', include(router.urls)),
+    # re_path('api/v1/manage_hood/hood-id/(?P<pk>[0-9]+)/', views.HoodManager.as_view()),
     path('',views.index,name='index'),
     path('signup/',views.index,name='signup'),
     path('api/v1/hoods', views.NeighbourhoodList.as_view()),
+    path('search/business', views.search_business, name="search_business"),
+    re_path(r'^business/(\d+)',views.single_business,name='singlebusiness'),
+    path('add/business',views.add_business,name='add-business')
 ]
 
 

@@ -1,10 +1,10 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import  Neighbourhood
+from .models import  Neighbourhood,Business
 from .serializer import NeighbourhoodSerializer
 from rest_framework import status
 
@@ -28,5 +28,42 @@ class NeighbourhoodList(APIView):
         hoods = Neighbourhood.objects.all()
         serializer = self.serializer_class(data=hoods)
         return Response(serializer.data,status=status.HTTP_200_OK)
+    
+# def search_results(request):
+#     if 'business' in request.GET and request.Get["business"]:
+#         search_term = request.GET.get("business")
+#         search_categories = Business.search_business(search_term)
+#         message = f"{search_term}"
+#         return render(request,'searchbusiness.html',{"message":message,"business":searched_business})
+#     else:
+#          message ="You haven't searched for any categories"
+#          return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+
+def search_business(request):
+    
+    if 'business' in request.GET and request.GET["business"]:
+        category = request.GET.get("business")
+        searched_category = Business.search_by_category(category)
+        message = f"{category}"
+        
+        return render(request, 'searchbusiness.html',{"message":message,"businesssearched":search_categories})
+     
+def single_business(request,businessid):
+    single_business=Business.single_business(businessid)
+    return render(request,'singlebusiness.html',{'singlebusiness':single_business})
+
+def add_business(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = business(request.POST,request.FILES)
+        if form.is_valid():
+            project =form.save(commit=False)
+            project.editor =current_user
+            project.save()
+            return redirect('home')
+    else:
+        form = business()
+    return render(request,'postbusiness.html',{"form":form}) 
+
 
 
